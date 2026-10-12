@@ -10,9 +10,9 @@
     <div class="home-shell">
         <section class="hero" aria-labelledby="hero-title">
             <div class="hero-copy">
-                <p class="eyebrow"><span></span> An Amelix-hosted MultiworldGG instance</p>
-                <h1 id="hero-title">Worlds apart.<br /><em>Playing together.</em></h1>
-                <p class="hero-intro">Shuffle items across entirely different games and turn separate adventures into one shared journey. Your next upgrade might be waiting in somebody else's world.</p>
+                <p class="eyebrow"><span></span> mgg.amelix.xyz</p>
+                <h1 id="hero-title"><span>Amelix's</span><em>Archipelago</em></h1>
+                <p class="hero-intro">I dunno I was bored, check out that floating island thing to the right that an AI made in pure CSS though, that's pretty cool</p>
                 <div class="hero-actions">
                     <a class="button button-primary" href="/generate">Generate a game <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11M11 6l4 4-4 4"/></svg></a>
                     <a class="button button-secondary" href="/start-playing">How it works</a>
@@ -30,22 +30,11 @@
                 <div class="signal signal-one"></div><div class="signal signal-two"></div><p class="world-label label-a">YOUR WORLD <b>01</b></p><p class="world-label label-b">THEIR WORLD <b>02</b></p>
             </div>
         </section>
-        <section class="pathways" aria-labelledby="pathways-title">
-            <div class="section-heading"><p class="eyebrow"><span></span> Choose your route</p><h2 id="pathways-title">Everything you need to<br />cross the worlds.</h2></div>
-            <div class="pathway-grid">
-                <a class="pathway-card card-games" href="/games"><span class="card-index">01 / EXPLORE</span><span class="card-icon" aria-hidden="true">&#10022;</span><h3>Supported games</h3><p>Browse every world available on this server and find its setup guide.</p><span class="card-link">View game library <b>&nearr;</b></span></a>
-                <a class="pathway-card card-generate" href="/generate"><span class="card-index">02 / CREATE</span><span class="card-icon" aria-hidden="true">&#8984;</span><h3>Generate</h3><p>Bring player files together and build a new randomized multiworld.</p><span class="card-link">Build a world <b>&nearr;</b></span></a>
-                <a class="pathway-card card-host" href="/uploads"><span class="card-index">03 / LAUNCH</span><span class="card-icon" aria-hidden="true">&#9651;</span><h3>Host a game</h3><p>Upload an existing seed and create a room for your group to join.</p><span class="card-link">Open a room <b>&nearr;</b></span></a>
-                <a class="pathway-card card-lobbies" href="/lobbies"><span class="card-index">04 / GATHER</span><span class="card-icon" aria-hidden="true">&#9678;</span><h3>Lobbies</h3><p>Gather players, coordinate files and generate together in one place.</p><span class="card-link">Find a lobby <b>&nearr;</b></span></a>
-            </div>
-        </section>
-        <section class="how-it-works" aria-labelledby="how-title">
-            <div class="how-visual" aria-hidden="true"><div class="mini-world mini-world-a"><span>GAME A</span></div><div class="transfer-line"><i></i><i></i><i></i></div><div class="mini-world mini-world-b"><span>GAME B</span></div></div>
-            <div class="how-copy"><p class="eyebrow"><span></span> One connected adventure</p><h2 id="how-title">Different games.<br />Shared progression.</h2><p>MultiworldGG links randomized games into a single session. Find an item for a friend and it travels to them; they do the same for you.</p>
-                <ol><li><span>01</span><div><strong>Choose your worlds</strong><p>Each player selects a supported game and creates their options file.</p></div></li><li><span>02</span><div><strong>Generate together</strong><p>Combine those files into one connected, randomized seed.</p></div></li><li><span>03</span><div><strong>Play and collaborate</strong><p>Explore, exchange items automatically, and reach your goals as a team.</p></div></li></ol>
-                <a class="text-link" href="/start-playing">Read the getting started guide <span>&rarr;</span></a>
-            </div>
-        </section>
-        <section class="attribution" aria-labelledby="built-title"><div><p class="eyebrow"><span></span> Community powered</p><h2 id="built-title">Built on an open universe.</h2></div><p>Amelix Multiworld is a personal instance of <a href="https://github.com/MultiworldGG/MultiworldGG">MultiworldGG</a>, itself based on <a href="https://github.com/ArchipelagoMW/Archipelago">Archipelago</a> and the work of many <a href="https://github.com/ArchipelagoMW/Archipelago/graphs/contributors">talented contributors</a>. Please use the relevant community support channels for each project.</p></section>
+        <nav class="home-destinations" aria-label="Multiworld destinations">
+            <a class="destination destination-games" href="/games"><span aria-hidden="true">&#10022;</span><div><strong>Games</strong><small>Browse supported worlds</small></div><b aria-hidden="true">&nearr;</b></a>
+            <a class="destination destination-generate" href="/generate"><span aria-hidden="true">&#8984;</span><div><strong>Generate</strong><small>Create a new multiworld</small></div><b aria-hidden="true">&nearr;</b></a>
+            <a class="destination destination-host" href="/uploads"><span aria-hidden="true">&#9651;</span><div><strong>Host a game</strong><small>Launch an existing seed</small></div><b aria-hidden="true">&nearr;</b></a>
+            <a class="destination destination-lobbies" href="/lobbies"><span aria-hidden="true">&#9678;</span><div><strong>Lobbies</strong><small>Gather your players</small></div><b aria-hidden="true">&nearr;</b></a>
+        </nav>
     </div>
 {% endblock %}

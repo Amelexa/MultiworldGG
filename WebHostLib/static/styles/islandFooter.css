@@ -4,7 +4,9 @@
 .footer-brand > div { display: flex; flex-direction: column; line-height: 1; letter-spacing: .16em; }
 .footer-brand strong { font-size: 17px; }
 .footer-brand small { margin-top: 5px; color: #8e8699; font-size: 8px; letter-spacing: .34em; }
-.site-footer > p { margin: 0; }
+.site-footer > p { max-width: 440px; margin: 0; }
+.site-footer > p strong { color: #eee8f4; font-weight: 500; }
+.site-footer > p a { color: #e5a8f0; }
 .site-footer nav { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 30px; }
 .site-footer nav a { color: #d7d0df; font-size: 12px; text-transform: uppercase; letter-spacing: .08em; }
 .site-footer nav a:hover { color: #faadfa; }
