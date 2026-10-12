@@ -1,16 +1,9 @@
 {% block footer %}
-    <footer id="island-footer">
-        <div id="copyright-notice">Copyright 2026 ZSR</div>
-        <div id="links">
-            <a href="/sitemap">Site Map</a>
-            -
-            <a href="https://github.com/MultiworldGG/MultiworldGG">Source</a>
-            - 
-            <a href="/legal">Legal</a>
-        </div>
+    <footer id="island-footer" class="site-footer">
+        <div class="footer-brand"><span class="site-brand-mark" aria-hidden="true"><span></span><span></span><span></span></span><div><strong>AMELIX</strong><small>MULTIWORLD</small></div></div>
+        <p>A personal MultiworldGG instance.<br />Many games, one shared adventure.</p>
+        <nav aria-label="Footer navigation"><a href="/sitemap">Site map</a><a href="https://github.com/Amelexa/MultiworldGG">Source</a><a href="/legal">Legal</a><a href="https://amelix.xyz">Amelix.xyz</a></nav>
+        <div class="footer-meta"><span>POWERED BY MULTIWORLDGG</span><span>&copy; 2026 AMELIX</span></div>
     </footer>
 {% endblock %}
-
-{% block head %}
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename="styles/islandFooter.css") }}" />
-{% endblock %}
+{% block head %}<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/islandFooter.css') }}" />{% endblock %}

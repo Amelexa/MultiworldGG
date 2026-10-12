@@ -1,65 +1,51 @@
 {% extends 'pageWrapper.html' %}
 {% set show_footer = True %}
-
 {% block head %}
-    <title>MultiworldGG</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename="styles/landing.css") }}" />
-    <script src="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@3.0.1/dist/cookieconsent.umd.js"></script>
+    <title>Amelix Multiworld &mdash; Worlds apart. Playing together.</title>
+    <meta name="description" content="Generate, host and play MultiworldGG games with friends on Amelix Multiworld." />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/landing.css') }}" />
 {% endblock %}
-
 {% block body %}
     {% include 'header/oceanIslandHeader.html' %}
-    <div id="landing-wrapper">
-        <div id="landing-header">
-            <img id="landing-logo" src="static/static/branding/landing-logo.png" alt="MultiworldGG Logo" />
-        </div>
-        <div id="landing-links">
-            <a href="/games" id="far-left-button">Included<br />Games</a>
-            <a href="/tutorial" id="mid-left-button">Setup Guides</a>
-            <a href="/start-playing" id="mid-button">Start<br />Playing</a>
-            <a href="/faq/en/" id="mid-right-button">F.A.Q.</a>
-            <a href="https://discord.multiworld.gg" id="far-right-button" target="_blank">Join<br />Discord</a>
-        </div>
-        <div id="landing-clouds">
-            <img id="cloud1" src="/static/static/backgrounds/clouds/cloud-0001.png"/>
-            <img id="cloud2" src="/static/static/backgrounds/clouds/cloud-0002.png"/>
-            <img id="cloud3" src="/static/static/backgrounds/clouds/cloud-0003.png"/>
-            <img id="cloud4" src="/static/static/backgrounds/clouds/cloud-0004.png"/>
-        </div>
-        <div id="landing" class="grass-island">
-            <div id="landing-body">
-                <p id="first-line">Welcome to Multiworld.GG!</p>
-                <h5 style="color: #ea166c">A multi-game multiworld randomizer</h5>
-                <p>
-                    This is a cross-game system which randomizes different games, then uses the result to
-                    build a single unified multi-player game. Items from one game may be present in another, and
-                    you will need your fellow players to find items you need in their games to help you complete
-                    your own.
-                </p>
-                <p>
-                    This project is based on <a href="https://github.com/ArchipelagoMW/Archipelago">Archipelago</a>, a cumulative effort of many
-                    <a href="https://github.com/ArchipelagoMW/Archipelago/graphs/contributors">talented people.</a><br />We also link to or 
-                    include a few amazing third party open source clients and tracking tools created by amazing contributors, like the 
-                    <a href="https://cheesetrackers.theincrediblewheelofchee.se/">Cheese Trackers</a> by <a href="https://github.com/cdhowie/cheese-trackers">Cheese</a>,
-                    the <a href="https://drawesome4333.github.io/ap-tracker/">AP checklist tracker</a> by <a href="https://github.com/DrAwesome4333/ap-tracker">DrAwesome4333</a>,
-                    and the community-run <a href="https://archipelago.miraheze.org/wiki/Main_Page">AP Wiki</a>.
-                <p>
-                    Multiworld.GG is a fork, incorporating many tweaks and additional worlds of many 3rd party developers
-                    that cannot be part of the original project. We also offer worlds that are still in earlier stages of development.
-                    Found a bug? Please contact <b>us</b> first through <a href="https://discord.multiworld.gg">Discord</a> to minimize support load for the developers.
-                </p>
-
-                <p>
-                    <a href="{{ url_for("stats") }}">{{ seeds }}</a>
-                    games were generated and
-                    <a href="{{ url_for("stats") }}">{{ rooms }}</a>
-                    were hosted in the last 7 days.
-                    <br />
-                    <a href="{{ url_for("lobby_list") }}">{{ open_lobbies }}</a> 
-                    {% if open_lobbies == 1 %}lobby is{% else %}lobbies are{% endif %} 
-                    open right now.
-                </p>
+    <div class="home-shell">
+        <section class="hero" aria-labelledby="hero-title">
+            <div class="hero-copy">
+                <p class="eyebrow"><span></span> An Amelix-hosted MultiworldGG instance</p>
+                <h1 id="hero-title">Worlds apart.<br /><em>Playing together.</em></h1>
+                <p class="hero-intro">Shuffle items across entirely different games and turn separate adventures into one shared journey. Your next upgrade might be waiting in somebody else's world.</p>
+                <div class="hero-actions">
+                    <a class="button button-primary" href="/generate">Generate a game <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10h11M11 6l4 4-4 4"/></svg></a>
+                    <a class="button button-secondary" href="/start-playing">How it works</a>
+                </div>
+                <dl class="live-stats" aria-label="Service activity">
+                    <div><dt>{{ seeds }}</dt><dd>generated <span>last 7 days</span></dd></div>
+                    <div><dt>{{ rooms }}</dt><dd>hosted <span>last 7 days</span></dd></div>
+                    <div><dt>{{ open_lobbies }}</dt><dd>open <span>{% if open_lobbies == 1 %}lobby now{% else %}lobbies now{% endif %}</span></dd></div>
+                </dl>
             </div>
-        </div>
+            <div class="hero-world" aria-hidden="true">
+                <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="connection connection-one"></div><div class="connection connection-two"></div>
+                <div class="world-node node-main"><div class="island-top"><i></i><i></i><i></i></div><div class="island-core"><span class="portal"></span></div><div class="island-tail"></div></div>
+                <div class="world-node node-small node-a"><span></span></div><div class="world-node node-small node-b"><span></span></div><div class="world-node node-small node-c"><span></span></div>
+                <div class="signal signal-one"></div><div class="signal signal-two"></div><p class="world-label label-a">YOUR WORLD <b>01</b></p><p class="world-label label-b">THEIR WORLD <b>02</b></p>
+            </div>
+        </section>
+        <section class="pathways" aria-labelledby="pathways-title">
+            <div class="section-heading"><p class="eyebrow"><span></span> Choose your route</p><h2 id="pathways-title">Everything you need to<br />cross the worlds.</h2></div>
+            <div class="pathway-grid">
+                <a class="pathway-card card-games" href="/games"><span class="card-index">01 / EXPLORE</span><span class="card-icon" aria-hidden="true">&#10022;</span><h3>Supported games</h3><p>Browse every world available on this server and find its setup guide.</p><span class="card-link">View game library <b>&nearr;</b></span></a>
+                <a class="pathway-card card-generate" href="/generate"><span class="card-index">02 / CREATE</span><span class="card-icon" aria-hidden="true">&#8984;</span><h3>Generate</h3><p>Bring player files together and build a new randomized multiworld.</p><span class="card-link">Build a world <b>&nearr;</b></span></a>
+                <a class="pathway-card card-host" href="/uploads"><span class="card-index">03 / LAUNCH</span><span class="card-icon" aria-hidden="true">&#9651;</span><h3>Host a game</h3><p>Upload an existing seed and create a room for your group to join.</p><span class="card-link">Open a room <b>&nearr;</b></span></a>
+                <a class="pathway-card card-lobbies" href="/lobbies"><span class="card-index">04 / GATHER</span><span class="card-icon" aria-hidden="true">&#9678;</span><h3>Lobbies</h3><p>Gather players, coordinate files and generate together in one place.</p><span class="card-link">Find a lobby <b>&nearr;</b></span></a>
+            </div>
+        </section>
+        <section class="how-it-works" aria-labelledby="how-title">
+            <div class="how-visual" aria-hidden="true"><div class="mini-world mini-world-a"><span>GAME A</span></div><div class="transfer-line"><i></i><i></i><i></i></div><div class="mini-world mini-world-b"><span>GAME B</span></div></div>
+            <div class="how-copy"><p class="eyebrow"><span></span> One connected adventure</p><h2 id="how-title">Different games.<br />Shared progression.</h2><p>MultiworldGG links randomized games into a single session. Find an item for a friend and it travels to them; they do the same for you.</p>
+                <ol><li><span>01</span><div><strong>Choose your worlds</strong><p>Each player selects a supported game and creates their options file.</p></div></li><li><span>02</span><div><strong>Generate together</strong><p>Combine those files into one connected, randomized seed.</p></div></li><li><span>03</span><div><strong>Play and collaborate</strong><p>Explore, exchange items automatically, and reach your goals as a team.</p></div></li></ol>
+                <a class="text-link" href="/start-playing">Read the getting started guide <span>&rarr;</span></a>
+            </div>
+        </section>
+        <section class="attribution" aria-labelledby="built-title"><div><p class="eyebrow"><span></span> Community powered</p><h2 id="built-title">Built on an open universe.</h2></div><p>Amelix Multiworld is a personal instance of <a href="https://github.com/MultiworldGG/MultiworldGG">MultiworldGG</a>, itself based on <a href="https://github.com/ArchipelagoMW/Archipelago">Archipelago</a> and the work of many <a href="https://github.com/ArchipelagoMW/Archipelago/graphs/contributors">talented contributors</a>. Please use the relevant community support channels for each project.</p></section>
     </div>
 {% endblock %}

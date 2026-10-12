@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#090713">
+    <meta name="color-scheme" content="dark">
+    <link rel="icon" href="{{ url_for('static', filename='static/favicon.ico') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename="styles/tooltip.css") }}" />
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename="styles/globalStyles.css") }}" />
     <script src="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@3.0.1/dist/cookieconsent.umd.js"></script>
@@ -21,7 +24,8 @@
     {% endblock %}
 </head>
 <body>
-    <main>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <main id="main-content">
         {% with messages = get_flashed_messages() %}
             {% if messages %}
                 <div>

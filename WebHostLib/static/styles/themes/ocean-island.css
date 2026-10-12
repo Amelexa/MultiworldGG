@@ -1,16 +1,13 @@
 html{
-    background-image: url('../../static/backgrounds/ocean.png');
-    background-repeat: repeat;
-    background-size: 126px 126px;
+    background-color: #090713;
+    background-image: radial-gradient(circle at 20% 20%, rgba(143, 88, 196, .16), transparent 28%), radial-gradient(circle at 80% 12%, rgba(55, 137, 173, .12), transparent 25%);
     font-family: Inter-Light, sans-serif;
     font-size: 18px;
     color: #ffffff;
     line-height: 30px;
 }
 
-#base-header{
-    background: url('../../static/backgrounds/header/ocean-header.png') repeat-x;
-}
+#base-header{ background: rgba(8, 6, 17, .76); }
 
 div header{
     font-family: Inter-Light, sans-serif;
@@ -29,8 +26,10 @@ h1{
 }
 
 .grass-island{
-    background-color: #8BC6EC;
-    background-image: linear-gradient(0deg, #093C4F 0%, #09194F 100%);
+    background-color: #151021;
+    background-image: linear-gradient(145deg, rgba(94, 53, 126, .34), rgba(11, 9, 19, .92));
+    border: 1px solid rgba(255, 255, 255, .11);
+    box-shadow: 0 24px 70px rgba(0, 0, 0, .28);
     
     border-radius: 25px;
     min-width: 300px;
