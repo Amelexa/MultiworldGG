@@ -1870,3 +1870,22 @@ a.lobby-btn-primary:hover {
     from { transform: translateX(0);     opacity: 1; }
     to   { transform: translateX(-110%); opacity: 0; }
 }
+/* Amelix design-system layer */
+#lobby-list-wrapper,#lobby-create-wrapper,#lobby-wrapper { color:#aaa2b5; }
+#lobby-list,#lobby-list-table,#my-lobbies,#lobby-create,#lobby-container { background:linear-gradient(135deg,rgba(29,21,42,.94),rgba(12,10,19,.96)); border:1px solid rgba(255,255,255,.1); border-radius:16px; box-shadow:0 28px 80px rgba(0,0,0,.26); }
+#lobby-list h1,#lobby-list h2,#lobby-list-table h2,#my-lobbies h2,#lobby-create h1,#lobby-container h1,#lobby-container h2,#lobby-container h3 { color:#f6f1fb; text-transform:none; letter-spacing:-.025em; }
+#lobby-list h1,#lobby-create h1 { font-size:clamp(38px,5vw,60px); letter-spacing:-.045em; }
+#lobby-table,#my-lobby-table { overflow:hidden; background:rgba(5,4,10,.32); border:1px solid rgba(255,255,255,.08); border-radius:10px; }
+#lobby-table th,#my-lobby-table th { color:#8f869a; background:rgba(255,255,255,.035); border-color:rgba(255,255,255,.08); font:600 9px Inter-Regular,sans-serif; letter-spacing:.12em; text-transform:uppercase; }
+#lobby-table td,#my-lobby-table td { color:#c3bbc9; border-color:rgba(255,255,255,.07); }
+#lobby-table tr:hover,#my-lobby-table tr:hover { background:rgba(250,173,250,.045); }
+.lobby-btn,#create-lobby-button { border-radius:999px!important; border:1px solid rgba(255,255,255,.14)!important; box-shadow:none!important; text-shadow:none!important; }
+.lobby-btn-primary,#create-lobby-button { color:#160e1c!important; background:linear-gradient(110deg,#faadfa,#ad7aff)!important; }
+#lobby-info,#lobby-sidebar,#lobby-chat,.settings-section,#apworld-queue-panel { background:rgba(5,4,10,.32); border:1px solid rgba(255,255,255,.08); border-radius:12px; }
+.lobby-player,.apworld-request-item { background:rgba(255,255,255,.035); border-color:rgba(255,255,255,.08); border-radius:9px; }
+#chat-messages,#logger { color:#bdb5c5; background:#07050d; border:1px solid rgba(255,255,255,.09); }
+.drop-zone,#yaml-upload-area { border-color:rgba(250,173,250,.36); background:rgba(250,173,250,.025); border-radius:12px; }
+.drop-zone.drag-over { border-color:#faadfa; background:rgba(250,173,250,.09); }
+.settings-tip-content,#settings-modal-content,#yaml-view-modal-content,.yaml-actions-menu { color:#c3bbc9; background:#100c19; border:1px solid rgba(255,255,255,.12); box-shadow:0 24px 70px rgba(0,0,0,.55); }
+.status-open,.lobby-status-0 { color:#7be3b0; }.status-generating,.lobby-status-1 { color:#ffd47d; }.status-done,.lobby-status-2 { color:#76dff5; }.status-locked,.lobby-status-3 { color:#ef9f75; }
+@media(max-width:700px){#lobby-list-wrapper,#lobby-create-wrapper,#lobby-wrapper{padding-inline:12px}#lobby-list,#lobby-list-table,#my-lobbies,#lobby-create,#lobby-container{border-radius:12px}}

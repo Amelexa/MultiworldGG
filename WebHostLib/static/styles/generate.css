@@ -4,15 +4,19 @@
     justify-content: center;
     flex-wrap: wrap;
     margin-bottom: 10px;
+    padding: 38px 16px 90px;
 }
 
 #generate-game{
     width: 990px;
     max-width: calc(100vw - 32px);
     min-height: 360px;
-    text-align: center;
+    text-align: left;
     margin-bottom: 50px;
+    padding: clamp(24px,4vw,48px);
 }
+#generate-game h1 { color:#f6f1fb; font-size:clamp(38px,5vw,60px); letter-spacing:-.045em; text-transform:none; }
+#generate-game > p { color:#a49cab; line-height:1.7; }
 
 #generate-game p{
     text-align: left;
@@ -34,10 +38,12 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
     column-gap: 18px;
     align-items: start;
+    margin-top: 30px;
 }
 
 #generate-game-tables-container .table-wrapper {
     min-width: 0;
+    padding:10px 18px; background:rgba(5,4,10,.3); border:1px solid rgba(255,255,255,.08); border-radius:12px;
 }
 
 .table-wrapper select {
@@ -57,7 +63,8 @@
 #generate-game-form-wrapper table td{
     text-align: left;
     padding-right: 0.5rem;
-    vertical-align: top;
+    vertical-align: middle;
+    padding-top:8px; padding-bottom:8px; color:#c0b8c8;
 }
 
 #generate-game-form-wrapper table td:first-child{
@@ -98,20 +105,19 @@
     align-items: center;
     gap: 10px;
     padding: 20px;
-    border: 2px dashed #ccc;
-    border-radius: 8px;
+    border: 1px dashed rgba(250,173,250,.42);
+    border-radius: 14px;
     margin: 20px 0;
     transition: all 0.3s ease;
-    margin-bottom: 35px;
+    margin-bottom:0; background:rgba(250,173,250,.025);
 }
 
 #upload-area.drag-over {
-    border-color: #007bff;
-    background-color: rgba(0, 123, 255, 0.1);
+    border-color:#faadfa; background-color:rgba(250,173,250,.09);
 }
 
 #drag-drop-text {
     margin: 0;
-    color: #666;
+    color: #81798b;
     font-size: 14px;
 }

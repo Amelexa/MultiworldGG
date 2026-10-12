@@ -1,7 +1,11 @@
 #games{
-    width: 60%;
-    margin: auto auto 30px;
+    width: min(1120px, calc(100% - 40px));
+    margin: 35px auto 90px;
+    color: #aaa2b5;
 }
+#games > h1 { margin:0 0 16px; color:#f6f1fb; font-size:clamp(42px,6vw,72px); font-family:Inter-Light,sans-serif; letter-spacing:-.045em; text-transform:none; }
+#games .page-kicker { margin:0 0 12px; color:#d78ce9; font:600 10px Inter-Regular,sans-serif; letter-spacing:.18em; text-transform:uppercase; }
+#games > p { max-width:820px; color:#9890a4; }
 
 #games h2, #games h3, #games h4, #games h5, #games h6 {
     text-transform: none;
@@ -13,8 +17,8 @@
 }
 
 #games h2, #games details summary.h2{
-    color: white;
-    margin-bottom: 2px;
+    color: #f2ecf6;
+    margin-bottom: 0;
     text-transform: none;
 }
 
@@ -36,12 +40,23 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    margin-top: 0.25rem;
+    gap: 10px;
+    margin: 18px 0 8px;
 }
+#game-search { flex:1 1 340px; }
 
 #games .page-controls button{
-    margin-left: 0.5rem;
+    margin:0; color:#e9e2ef; background:rgba(255,255,255,.045); border:1px solid rgba(255,255,255,.13); border-radius:8px;
 }
+#games details { margin:10px 0; padding:0 20px; overflow:hidden; background:linear-gradient(110deg,rgba(31,23,45,.82),rgba(14,11,23,.78)); border:1px solid rgba(255,255,255,.09); border-radius:12px; transition:border-color .2s ease,transform .2s ease; }
+#games details:hover { border-color:rgba(215,140,233,.3); transform:translateX(3px); }
+#games details[open] { padding-bottom:20px; border-color:rgba(215,140,233,.35); }
+#games details summary { position:relative; padding:18px 32px 18px 0; cursor:pointer!important; font:400 19px Inter-Regular,sans-serif; list-style:none; }
+#games details summary::-webkit-details-marker { display:none; }
+#games details summary::after { content:"+"; position:absolute; right:2px; color:#b67be8; font-size:24px; font-weight:300; transition:transform .2s ease; }
+#games details[open] summary::after { transform:rotate(45deg); }
+#games details a { display:inline-block; margin-top:10px; color:#e9aaf3; }
+@media(max-width:640px){#games{width:min(100% - 24px,1120px);margin-top:20px}#games .page-controls button{flex:1}}
 
 /* Favorites Section Styles */
 #favorites-section {

@@ -3,13 +3,17 @@
     flex-direction: row;
     justify-content: center;
     flex-wrap: wrap;
+    padding: 38px 20px 90px;
 }
 
 #host-game{
-    width: 700px;
+    width: min(760px, 100%);
     min-height: 240px;
-    text-align: center;
+    text-align: left;
+    padding: clamp(28px,5vw,55px);
 }
+#host-game h1 { color:#f6f1fb; font-size:clamp(40px,6vw,64px); letter-spacing:-.045em; text-transform:none; }
+#host-game > p { color:#a59dab; line-height:1.7; }
 
 #host-game.wider{
     width: 980px;
@@ -34,21 +38,22 @@
     flex-direction: column;
     align-items: center;
     gap: 10px;
-    padding: 20px;
-    border: 2px dashed #ccc;
-    border-radius: 8px;
+    padding: 42px 20px;
+    border: 1px dashed rgba(250,173,250,.42);
+    border-radius: 14px;
     margin: 20px 0;
     transition: all 0.3s ease;
-    margin-bottom: 35px;
+    margin-bottom: 0;
+    background: rgba(250,173,250,.025);
 }
 
 #upload-area.drag-over {
-    border-color: #007bff;
-    background-color: rgba(0, 123, 255, 0.1);
+    border-color: #faadfa;
+    background-color: rgba(250,173,250,.09);
 }
 
 #drag-drop-text {
     margin: 0;
-    color: #666;
+    color: #81798b;
     font-size: 14px;
 }

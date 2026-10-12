@@ -3,13 +3,17 @@
     flex-direction: row;
     justify-content: center;
     flex-wrap: wrap;
+    padding:38px 20px 90px;
 }
 
 #view-seed{
-    width: 620px;
+    width:min(760px,100%);
     min-height: 360px;
-    text-align: center;
+    text-align:left;
+    padding:clamp(26px,5vw,52px);
 }
+#view-seed h1 { color:#f6f1fb; font-size:clamp(40px,6vw,62px); letter-spacing:-.045em; text-transform:none; }
+#view-seed h3 { color:#dcb3ed; }
 
 #view-seed table td{
     vertical-align: top;
@@ -22,5 +26,12 @@
 #view-seed table{
     text-align: left;
     margin-left: auto;
-    margin-right: auto;
+    margin-right:auto;
+    width:100%;
+    color:#b8b0c1;
+    background:rgba(5,4,10,.25);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:10px;
+    overflow:hidden;
 }
+#view-seed td { padding:10px 12px; border-bottom:1px solid rgba(255,255,255,.07); }

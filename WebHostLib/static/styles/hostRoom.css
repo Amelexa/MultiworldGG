@@ -1,27 +1,30 @@
 #host-room{
-    width: 60%;
+    width: min(1120px, calc(100% - 40px));
     margin-left: auto;
     margin-right: auto;
-    background-color: rgba(0, 0, 0, 0.15);
-    border-radius: 8px;
-    padding: 1rem;
-    color: #eeffeb;
+    background: linear-gradient(135deg,rgba(29,21,42,.94),rgba(12,10,19,.96));
+    border:1px solid rgba(255,255,255,.1);
+    border-radius: 16px;
+    padding: clamp(24px,4vw,48px);
+    color: #b7afc0;
     font-family: Inter-Light, sans-serif;
-    line-height: 24px;
+    line-height: 1.65;
+    box-shadow:0 28px 80px rgba(0,0,0,.3);
 }
+#host-room h1,#host-room h2,#host-room h3 { color:#f6f1fb; text-transform:none; letter-spacing:-.025em; }
 
 #host-room div{
     line-height: 26px;
 }
 
 #host-room a{
-    color: #ea166c;
+    color: #e9aaf3;
 }
 
 #host-room input[type=text]{
-    border: 1px solid #000000;
-    padding: 3px;
-    border-radius: 3px;
+    border: 1px solid rgba(255,255,255,.14);
+    padding: 9px 12px;
+    border-radius: 8px;
     width: 50%;
     margin-top: 25px;
     margin-bottom: 6px;
@@ -37,13 +40,15 @@
 #host-room table th{
     text-align: left;
     padding: 10px;
-    border: 1px solid white;
+    border: 0;
+    border-bottom:1px solid rgba(255,255,255,.12);
     font-size: 20px;
     font-family: Inter-Regular, sans-serif;
 }
 
 #host-room table td{
-    border: 1px solid white;
+    border: 0;
+    border-bottom:1px solid rgba(255,255,255,.08);
     text-align: left;
     padding: 10px;
 }
@@ -51,10 +56,10 @@
 #host-room #logger{
     margin-top: 0;
     padding: 0.5rem 0.25rem;
-    background-color: lightblue;
-    border: 1px solid #2a6c2f;
-    border-radius: 6px;
-    color: #000000;
+    background-color: #07050d;
+    border: 1px solid rgba(255,255,255,.1);
+    border-radius: 10px;
+    color: #c4bccb;
     overflow-y: auto;
     max-height: 400px;
 }
@@ -86,7 +91,7 @@
 
 @media (max-width: 767px) {
     #host-room {
-        width: 99%;
+        width: calc(100% - 24px);
     }
     #base-header-right-mobile {
         margin-right: 35px !important;

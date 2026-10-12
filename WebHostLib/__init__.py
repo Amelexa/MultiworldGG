@@ -29,6 +29,8 @@ app.jinja_env.filters['get_file_safe_name'] = get_file_safe_name
 
 # overwrites of flask default config
 app.config["DEBUG"] = False
+app.config["TEMPLATES_AUTO_RELOAD"] = os.environ.get("TEMPLATES_AUTO_RELOAD", "false").lower() in ("1", "true", "yes")
+app.config["TEMPLATES_AUTO_RELOAD"] = os.environ.get("TEMPLATES_AUTO_RELOAD", "false").lower() in ("1", "true", "yes")
 app.config["PORT"] = 80
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 app.config["LOBBY_APWORLD_PATH"] = os.path.abspath(LOBBY_APWORLD_FOLDER)

@@ -220,6 +220,51 @@ input[type="checkbox"] {
   accent-color: #b44ad9;
 }
 
+input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="submit"]):not([type="file"]), select, textarea {
+  min-height: 42px; padding: 9px 12px; color: #eee8f4; background: rgba(7,5,13,.64);
+  border: 1px solid rgba(255,255,255,.14); border-radius: 8px; font: 14px Inter-Regular,sans-serif;
+  transition: border-color .2s ease, box-shadow .2s ease, background .2s ease;
+}
+input:hover, select:hover, textarea:hover { border-color: rgba(250,173,250,.42); }
+input:focus, select:focus, textarea:focus { border-color:#b67be8; outline:0; box-shadow:0 0 0 3px rgba(182,123,232,.14); background:rgba(13,9,23,.9); }
+select { color-scheme:dark; }
+table { border-spacing:0; }
+::selection { color:#130c1a; background:#faadfa; }
+
+input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="submit"]):not([type="file"]),
+select,
+textarea {
+  min-height: 42px;
+  padding: 9px 12px;
+  color: #eee8f4;
+  background: rgba(7, 5, 13, 0.64);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 8px;
+  font: 14px Inter-Regular, sans-serif;
+  transition: border-color .2s ease, box-shadow .2s ease, background .2s ease;
+}
+
+input:hover,
+select:hover,
+textarea:hover {
+  border-color: rgba(250, 173, 250, .42);
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: #b67be8;
+  outline: 0;
+  box-shadow: 0 0 0 3px rgba(182, 123, 232, .14);
+  background: rgba(13, 9, 23, .9);
+}
+
+select { color-scheme: dark; }
+
+table { border-spacing: 0; }
+
+::selection { color: #130c1a; background: #faadfa; }
+
 input[type="range"] {
   -webkit-appearance: none; /* Hides the slider so that custom slider can be made */
   width: 50%; /* Specific width is required for Firefox. */

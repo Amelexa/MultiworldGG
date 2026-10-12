@@ -9,6 +9,8 @@
     --amx-line: rgba(255, 255, 255, .11);
 }
 
+body { color:var(--amx-text); background:radial-gradient(circle at 80% 0,rgba(114,63,158,.14),transparent 28%),#090713; }
+
 html { padding-top: 84px; scroll-padding-top: 100px; scroll-behavior: smooth; }
 
 .site-header {
