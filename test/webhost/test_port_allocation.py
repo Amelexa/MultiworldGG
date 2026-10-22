@@ -13,9 +13,9 @@ class TestPortAllocating(unittest.TestCase):
         """Ensure that game ports with ranges are parsed correctly"""
         val = RandomPortSocketCreator._parse_game_ports(("1000-2000", "2000-5000", "1000-2000", 20, 40, "20", "0"))
 
-        self.assertCountEqual(val.valid_ports,
-                              [*range(1000, 2001), *range(2000, 5001), *range(1000, 2001), 20, 40, 20],
-                              "The parsed game ports are not the expected length")
+        self.assertListEqual(val.valid_ports,
+                             [*range(1000, 2001), *range(2000, 5001), *range(1000, 2001), 20, 40, 20],
+                             "Game ports did not preserve their configured order")
         self.assertTrue(val.ephemeral_allowed, "The ephemeral allowed flag is not set even though it was passed")
 
         val = RandomPortSocketCreator._parse_game_ports(())

@@ -8,7 +8,6 @@ import itertools
 import logging
 import multiprocessing
 import pickle
-import random
 import socket
 import threading
 import time
@@ -184,7 +183,7 @@ class GameRangePorts(typing.NamedTuple):
 
 
 class RandomPortSocketCreator:
-    """ Creates server sockets on random available ports from a configured range. """
+    """Creates server sockets sequentially from a configured port range."""
 
     _next_port_index: int
     _used_ports_cache: tuple[frozenset[int], int] | None
@@ -211,7 +210,6 @@ class RandomPortSocketCreator:
             else:
                 valid_ports.append(int(item))
 
-        random.shuffle(valid_ports)
         return GameRangePorts(valid_ports, ephemeral_allowed)
 
     @staticmethod
