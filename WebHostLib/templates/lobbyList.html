@@ -69,7 +69,6 @@
                                 {% endif %}
                             </td>
                             <td data-label="Password">{{ 'Yes' if lobby.password_hash else 'No' }}</td>
-                            <td data-label="Custom APWorlds">{{ 'Yes' if lobby.allow_custom_apworlds else 'No' }}</td>
                             <td class="lobby-settings-td">
                                 <span class="settings-tip">Hover for settings
                                     <div class="settings-tip-content">
@@ -108,7 +107,6 @@
                             <th>YAMLs</th>
                             <th>Status</th>
                             <th>Password</th>
-                            <th>Custom</th>
                             <th>Settings</th>
                             <th></th>
                         </tr>
@@ -137,7 +135,6 @@
                                     {% endif %}
                                 </td>
                                 <td data-label="Password">{{ 'Yes' if lobby.password_hash else 'No' }}</td>
-                                <td data-label="Custom APWorlds">{{ 'Yes' if lobby.allow_custom_apworlds else 'No' }}</td>
                                 <td class="lobby-settings-td">
                                     <span class="settings-tip">Hover for settings
                                         <div class="settings-tip-content">

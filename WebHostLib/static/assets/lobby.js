@@ -35,7 +35,6 @@
     let lastPendingRequestCount = null;
     let lastApworldStates = {};  // game_name -> { world_version, yaml_id }
     let myPlayerName = null;
-    let allowCustomApworlds = false;
     let yamlActionMenuGlobalsBound = false;
     let yamlActionsPortal = null;
     let activeYamlActionToggle = null;
@@ -70,7 +69,6 @@
                 currentState = data.state;
                 hasCustomYamls = data.has_custom || false;
                 forceLocalGeneration = !!data.force_local_generation;
-                allowCustomApworlds = !!data.allow_custom_apworlds;
                 updatePlayers(data.players, data);
                 updateLobbyFiles(data);
                 const myPlayer = (MY_PLAYER_ID !== null)
@@ -718,9 +716,8 @@
 
         const metaMain = document.getElementById("lobby-meta-main");
         if (metaMain && data.max_yamls_per_player != null) {
-            const race = data.race ? "Race Mode | " : "";
-            const customAP = data.allow_custom_apworlds ? "Custom APWorlds: enabled" : "Custom APWorlds: disabled";
-            metaMain.textContent = `Max YAMLs: ${data.max_yamls_per_player} | Timeout: ${formatTimeout(data.timeout_minutes)} | ${race}${customAP}`;
+            const race = data.race ? " | Race Mode" : "";
+            metaMain.textContent = `Max YAMLs: ${data.max_yamls_per_player} | Timeout: ${formatTimeout(data.timeout_minutes)}${race}`;
         }
 
         const playerBadge = document.getElementById("player-count-badge");
@@ -1805,7 +1802,6 @@
                 return;
             }
 
-            const allowCustomEl = document.getElementById("edit-allow-custom-apworlds");
             const listedEl = document.getElementById("edit-listed");
             const payload = {
                 title: document.getElementById("edit-title").value.trim(),
@@ -1831,7 +1827,6 @@
                     0,
                     Math.min(parseInt(document.getElementById("edit-progression-equalization").value, 10) || 0, 100)
                 ),
-                allow_custom_apworlds: allowCustomEl ? allowCustomEl.checked : undefined,
                 listed: listedEl ? listedEl.checked : undefined,
             };
 

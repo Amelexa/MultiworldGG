@@ -30,6 +30,7 @@ LOBBY_LOCAL_GENERATION_YAML_LIMIT = 25
 AUXILIARY_APWORLD_LIMIT = 5
 META_YAML_MAX_SIZE = 1024 * 1024
 YAML_PLAYER_NAME_MAX_LENGTH = 16
+CUSTOM_APWORLDS_ENABLED = False
 
 def _safe_zip_name(name: str) -> str:
     """Replace characters that are problematic in ZIP entry names."""
@@ -1049,7 +1050,7 @@ def lobby_status(lobby: UUID):
                 if warning:
                     yaml_info["version_warning"] = warning
             # Offer optional apworld upgrade if YAML needs a newer version and none uploaded yet
-            if (lobby.allow_custom_apworlds and y_requires_version
+            if (CUSTOM_APWORLDS_ENABLED and lobby.allow_custom_apworlds and y_requires_version
                     and _version_mismatch_direction(y_requires_version, server_wv) == "newer"
                     and y_id not in apworld_by_yaml_id
                     and not game_has_shared_apworld):
@@ -1101,7 +1102,7 @@ def lobby_status(lobby: UUID):
         "max_yamls_per_player": lobby.max_yamls_per_player,
         "max_players": lobby.max_players,
         "timeout_minutes": lobby.timeout_minutes,
-        "allow_custom_apworlds": lobby.allow_custom_apworlds,
+        "allow_custom_apworlds": False,
         "listed": lobby.listed,
         "meta_yaml": {"filename": "meta.yaml", "uploaded_at": lobby.meta_yaml.uploaded_at.isoformat() + "Z"}
                      if lobby.meta_yaml else None,
@@ -1275,10 +1276,10 @@ def lobby_upload_yaml(lobby: UUID):
 
         if game and game not in AutoWorldRegister.world_types:
             # Completely unknown game - always requires custom APWorld
-            if not lobby.allow_custom_apworlds:
+            if not CUSTOM_APWORLDS_ENABLED:
                 return jsonify({
                     "error": f"Game '{game}' is not supported on this server. "
-                             f"The lobby owner must enable custom APWorlds to upload this file."
+                             "Ask the server maintainer to install its APWorld first."
                 }), 400
             if not player_name:
                 return jsonify({"error": f"Could not find player name in '{filename}'"}), 400
@@ -1291,12 +1292,12 @@ def lobby_upload_yaml(lobby: UUID):
 
             if direction == "newer":
                 # YAML needs a newer world than the server has
-                if not lobby.allow_custom_apworlds:
+                if not CUSTOM_APWORLDS_ENABLED:
                     req_label = _required_version_label(requires_version)
                     return jsonify({
                         "error": f"'{filename}' requires {game} v{req_label} but the server has "
                                  f"v{server_wv.as_simple_string()}. The lobby owner must enable "
-                                 f"custom APWorlds so you can upload the matching world."
+                                 "the server maintainer to install the matching APWorld."
                     }), 400
                 # Custom APWorlds enabled: skip validation to avoid the version exception.
                 if not player_name:
@@ -1314,7 +1315,7 @@ def lobby_upload_yaml(lobby: UUID):
 
         else:
             if filename in force_custom_filenames:
-                if not lobby.allow_custom_apworlds:
+                if not CUSTOM_APWORLDS_ENABLED:
                     return jsonify({"error": "Custom APWorlds are not enabled for this lobby."}), 400
                 if not player_name:
                     return jsonify({"error": f"Could not find player name in '{filename}'"}), 400
@@ -1337,7 +1338,7 @@ def lobby_upload_yaml(lobby: UUID):
         for fn, result in results.items():
             if isinstance(result, str):
                 pn, gm = standard_info.get(fn, ("", ""))
-                if gm and gm in AutoWorldRegister.world_types and lobby.allow_custom_apworlds:
+                if gm and gm in AutoWorldRegister.world_types and CUSTOM_APWORLDS_ENABLED:
                     needs_confirmation.append({
                         "filename": fn,
                         "error": result,
@@ -1799,8 +1800,6 @@ def lobby_update_settings(lobby: UUID):
     if "listed" in data and not isinstance(data["listed"], bool):
         return jsonify({"error": "listed must be a boolean"}), 400
 
-    newly_enabled_custom_apworlds = False
-
     if "title" in data:
         title = str(data["title"]).strip()
         if not title or len(title) > 48:
@@ -1808,11 +1807,9 @@ def lobby_update_settings(lobby: UUID):
         lobby.title = title
 
     if "allow_custom_apworlds" in data:
-        if data["allow_custom_apworlds"] and not lobby.allow_custom_apworlds:
-            lobby.allow_custom_apworlds = True
-            newly_enabled_custom_apworlds = True
-        elif not data["allow_custom_apworlds"] and lobby.allow_custom_apworlds:
-            return jsonify({"error": "Custom APWorlds cannot be disabled once enabled."}), 400
+        if data["allow_custom_apworlds"]:
+            return jsonify({"error": "Custom APWorld uploads are disabled on this server."}), 403
+        lobby.allow_custom_apworlds = False
 
     if "listed" in data:
         lobby.listed = data["listed"]
@@ -1907,11 +1904,7 @@ def lobby_update_settings(lobby: UUID):
         lobby=lobby,
         player=None,
         sender_name="System",
-        content=(
-            "Lobby settings were updated by the host. Custom APWorlds have been enabled."
-            if newly_enabled_custom_apworlds else
-            "Lobby settings were updated by the host."
-        ),
+        content="Lobby settings were updated by the host.",
     )
     commit()
 
@@ -2084,6 +2077,9 @@ def lobby_lock(lobby: UUID):
 @api_endpoints.route('/lobby/<suuid:lobby>/apworld/<int:yaml_id>', methods=['POST'])
 @limiter.limit("5 per minute")
 def lobby_upload_apworld(lobby: UUID, yaml_id: int):
+    if not CUSTOM_APWORLDS_ENABLED:
+        return jsonify({"error": "Custom APWorld uploads are disabled on this server."}), 403
+
     lobby = Lobby.get(id=lobby)
     if not lobby:
         return jsonify({"error": "Lobby not found"}), 404
@@ -2326,6 +2322,9 @@ def lobby_apworld_requests(lobby: UUID):
 
 @api_endpoints.route('/lobby/<suuid:lobby>/apworld-request/<int:request_id>/approve', methods=['POST'])
 def lobby_apworld_request_approve(lobby: UUID, request_id: int):
+    if not CUSTOM_APWORLDS_ENABLED:
+        return jsonify({"error": "Custom APWorld uploads are disabled on this server."}), 403
+
     lobby = Lobby.get(id=lobby)
     if not lobby:
         return jsonify({"error": "Lobby not found"}), 404
@@ -2525,6 +2524,9 @@ def lobby_meta_yaml(lobby: UUID):
 @api_endpoints.route('/lobby/<suuid:lobby>/auxiliary-apworld/<int:yaml_id>', methods=['POST'])
 @limiter.limit("30 per hour")
 def lobby_upload_auxiliary_apworld(lobby: UUID, yaml_id: int):
+    if not CUSTOM_APWORLDS_ENABLED:
+        return jsonify({"error": "Custom APWorld uploads are disabled on this server."}), 403
+
     # Serialize uploads for a lobby so concurrent uploads cannot exceed the shared five-file limit.
     lobby = Lobby.get_for_update(id=lobby)
     if not lobby:

@@ -12,7 +12,12 @@
     {% include 'header/grassHeader.html' %}
     <div id="lobby-wrapper">
         <div id="lobby-container" class="grass-island">
-            <h2 id="lobby-title">{{ lobby.title }}</h1>
+            <header class="lobby-header">
+                <div>
+                    <span class="lobby-eyebrow">MULTIWORLD LOBBY</span>
+                    <h2 id="lobby-title">{{ lobby.title }}</h2>
+                </div>
+            </header>
 
             {% if lobby.state == -1 %}
                 <p class="lobby-expired">This lobby has expired.</p>
@@ -24,7 +29,7 @@
                         Players: {{ player_count }}{% if lobby.max_players > 0 %}/{{ lobby.max_players }}{% endif %} &mdash;
                         Max YAMLs: {{ lobby.max_yamls_per_player }} &mdash;
                         Timeout: {{ fmt_timeout(lobby.timeout_minutes) }} &mdash;
-                        {% if lobby.race %}Race Mode &mdash; {% endif %}{{ 'Custom APWorlds: enabled' if lobby.allow_custom_apworlds else 'Custom APWorlds: disabled' }}
+                        {% if lobby.race %}Race Mode{% endif %}
                     </p>
                     <p class="lobby-preview-meta">
                         Release: {{ server_opts.get('release_mode', 'auto') }} &mdash;
@@ -72,7 +77,7 @@
                         Players: {{ player_count }}{% if lobby.max_players > 0 %}/{{ lobby.max_players }}{% endif %} &mdash;
                         Max YAMLs: {{ lobby.max_yamls_per_player }} &mdash;
                         Timeout: {{ fmt_timeout(lobby.timeout_minutes) }} &mdash;
-                        {% if lobby.race %}Race Mode &mdash; {% endif %}{{ 'Custom APWorlds: enabled' if lobby.allow_custom_apworlds else 'Custom APWorlds: disabled' }}
+                        {% if lobby.race %}Race Mode{% endif %}
                     </p>
                     <p class="lobby-preview-meta">
                         Release: {{ server_opts.get('release_mode', 'auto') }} &mdash;
@@ -111,7 +116,7 @@
                         Host: <strong>{{ owner_name }}</strong> &mdash;
                         Players: {{ player_count }}{% if lobby.max_players > 0 %}/{{ lobby.max_players }}{% endif %} &mdash;
                         Max YAMLs: {{ lobby.max_yamls_per_player }} &mdash;
-                        {% if lobby.race %}Race Mode &mdash; {% endif %}{{ 'Custom APWorlds: enabled' if lobby.allow_custom_apworlds else 'Custom APWorlds: disabled' }}
+                        {% if lobby.race %}Race Mode{% endif %}
                     </p>
                 </div>
                 <p>This lobby is
@@ -127,7 +132,7 @@
                         <span id="lobby-meta-main" class="lobby-meta">
                             Max YAMLs: {{ lobby.max_yamls_per_player }} |
                             Timeout: {{ fmt_timeout(lobby.timeout_minutes) }} |
-                            {% if lobby.race %}Race Mode | {% endif %}{{ 'Custom APWorlds: enabled' if lobby.allow_custom_apworlds else 'Custom APWorlds: disabled' }}
+                            {% if lobby.race %}Race Mode{% endif %}
                         </span>
                         <span class="lobby-info-right">
                             <span id="lobby-status" class="lobby-status-{{ lobby.state }}">
@@ -171,7 +176,7 @@
                 <div id="lobby-main">
                     <div id="lobby-sidebar">
                         <h3 class="lobby-sidebar-title">
-                            <span>Players <span id="player-count-badge" class="player-count-badge">({{ player_count }}{% if lobby.max_players > 0 %}/{{ lobby.max_players }}{% endif %})</span></span>
+                            <span><span class="section-kicker">PARTY</span>Players <span id="player-count-badge" class="player-count-badge">{{ player_count }}{% if lobby.max_players > 0 %}/{{ lobby.max_players }}{% endif %}</span></span>
                         </h3>
                         <ul id="lobby-players">
                             <li class="lobby-player-loading">Loading players&hellip;</li>
@@ -189,7 +194,7 @@
                         <span id="lobby-meta-main" class="lobby-meta">
                             Max YAMLs: {{ lobby.max_yamls_per_player }} |
                             Timeout: {{ fmt_timeout(lobby.timeout_minutes) }} |
-                            {% if lobby.race %}Race Mode | {% endif %}{{ 'Custom APWorlds: enabled' if lobby.allow_custom_apworlds else 'Custom APWorlds: disabled' }}
+                            {% if lobby.race %}Race Mode{% endif %}
                         </span>
                         <span class="lobby-info-right">
                             {% if not is_owner and lobby.state == 0 %}
@@ -257,10 +262,11 @@
                         <div id="yaml-upload-area">
                             <div class="yaml-upload-heading">
                                 <div>
+                                    <span class="section-kicker">YOUR LOADOUT</span>
                                     <h3>Add your games</h3>
                                     <p>Choose a supported game and build its YAML here, or upload one you already have.</p>
                                 </div>
-                                <a class="lobby-btn lobby-btn-primary" href="{{ url_for('games') }}">Choose a game &amp; build YAML</a>
+                                <a class="lobby-btn lobby-btn-primary" href="{{ url_for('games') }}">Choose a game <span aria-hidden="true">&#8594;</span></a>
                             </div>
                             <div id="yaml-upload-drop" class="drop-zone">
                                 <p>Drop .yaml / .zip files here, or
@@ -275,12 +281,9 @@
                     {% if lobby.state in (0, 3) %}
                         <div id="lobby-generate">
                             {% if is_owner %}
-                                <div id="apworld-queue-panel">
-                                    <h3>APWorld Requests</h3>
-                                    <div id="apworld-queue-empty">No pending APWorld requests.</div>
-                                    <ul id="apworld-queue-list"></ul>
-                                </div>
                                 <div id="generate-standard" {% if force_local_generation %}style="display:none"{% endif %}>
+                                    <span class="section-kicker">WHEN EVERYONE IS READY</span>
+                                    <h3>Start the adventure</h3>
                                     <button id="generate-btn" class="lobby-btn lobby-btn-primary"
                                             {% if yaml_count == 0 %}disabled{% endif %}>
                                         Generate Seed
@@ -296,7 +299,7 @@
                                         Download the package, generate locally with the {{ instance_name }} launcher{% if is_owner %}, then upload the result (AP_12345.zip) here{% endif %}.
                                     </span>
                                     <span id="local-generation-alternative-text" {% if force_local_generation %}style="display:none"{% endif %}>
-                                        {% if is_owner %}Alternatively, {% endif %}download a package of all YAMLs and APWorlds to generate locally
+                                        {% if is_owner %}Alternatively, {% endif %}download the YAML package to generate locally
                                     </span>
                                     <span id="large-lobby-local-notice" {% if yaml_count <= 25 %}style="display:none"{% endif %}>
                                         Lobbies with more than 25 YAMLs cannot use server generation.
@@ -348,6 +351,7 @@
 
                     {# Right: Chat #}
                     <div id="lobby-chat">
+                        <h3 class="lobby-section-title"><span class="section-kicker">LIVE</span>Lobby activity</h3>
                         <div id="chat-messages">
                             {% for msg in recent_messages %}
                                 <div class="chat-msg {% if msg.player is none %}chat-system{% endif %}" data-message-id="{{ msg.id }}">
@@ -413,20 +417,6 @@
                                         <td>
                                             <input type="number" id="edit-max-players" min="0" max="100"
                                                    value="{{ lobby.max_players }}" style="width:80px">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><label for="edit-allow-custom-apworlds">Custom APWorlds:
-                                            <span class="interactive" data-tooltip="Once enabled, this cannot be disabled.">(?)
-                                            </span>
-                                        </label></td>
-                                        <td>
-                                            {% if lobby.allow_custom_apworlds %}
-                                                <input type="checkbox" id="edit-allow-custom-apworlds" checked disabled>
-                                                <span style="font-size:0.85rem;color:#aaa;">Already enabled</span>
-                                            {% else %}
-                                                <input type="checkbox" id="edit-allow-custom-apworlds">
-                                            {% endif %}
                                         </td>
                                     </tr>
                                     <tr>

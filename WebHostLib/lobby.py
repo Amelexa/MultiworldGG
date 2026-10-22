@@ -167,7 +167,6 @@ def lobby_create():
         except (ValueError, TypeError):
             max_players = 0
 
-        allow_custom_apworlds = bool(request.form.get('allow_custom_apworlds'))
         listed = bool(request.form.get('listed'))
 
         owned_active = count(
@@ -194,7 +193,7 @@ def lobby_create():
             max_yamls_per_player=max_yamls,
             race=race,
             max_players=max_players,
-            allow_custom_apworlds=allow_custom_apworlds,
+            allow_custom_apworlds=False,
             listed=listed,
             meta=json.dumps(meta),
             state=LOBBY_OPEN,
