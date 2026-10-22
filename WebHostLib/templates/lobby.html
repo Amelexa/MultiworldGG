@@ -255,7 +255,13 @@
                     {# YAML Upload #}
                     {% if player and lobby.state in (0, 3) %}
                         <div id="yaml-upload-area">
-                            <h3>Upload YAML</h3>
+                            <div class="yaml-upload-heading">
+                                <div>
+                                    <h3>Add your games</h3>
+                                    <p>Choose a supported game and build its YAML here, or upload one you already have.</p>
+                                </div>
+                                <a class="lobby-btn lobby-btn-primary" href="{{ url_for('games') }}">Choose a game &amp; build YAML</a>
+                            </div>
                             <div id="yaml-upload-drop" class="drop-zone">
                                 <p>Drop .yaml / .zip files here, or
                                     <label for="yaml-file-input" class="drop-zone-label">browse...</label>

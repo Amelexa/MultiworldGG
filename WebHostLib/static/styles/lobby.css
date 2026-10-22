@@ -344,6 +344,40 @@ a.yaml-game-name:hover {
     padding-right: 7px;
 }
 
+.yaml-upload-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 16px;
+}
+
+.yaml-upload-heading h3,
+.yaml-upload-heading p {
+    margin: 0;
+}
+
+.yaml-upload-heading p {
+    margin-top: 6px;
+    color: #91899d;
+    font-size: 13px;
+}
+
+.yaml-upload-heading .lobby-btn {
+    flex: 0 0 auto;
+}
+
+@media (max-width: 680px) {
+    .yaml-upload-heading {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .yaml-upload-heading .lobby-btn {
+        text-align: center;
+    }
+}
+
 #yaml-upload-form {
     display: flex;
     flex-direction: column;
