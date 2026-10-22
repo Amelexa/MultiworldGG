@@ -1203,6 +1203,11 @@ def lobby_status(lobby: UUID):
 @api_endpoints.route('/lobby/<suuid:lobby>/upload', methods=['POST'])
 @limiter.limit("20 per minute")
 def lobby_upload_yaml(lobby: UUID):
+    return jsonify({
+        "error": "Direct YAML uploads are disabled. Use the supported game editor to add a game."
+    }), 403
+
+    # Retained temporarily as unreachable migration reference for older lobby data.
     lobby = Lobby.get(id=lobby)
     if not lobby:
         return jsonify({"error": "Lobby not found"}), 404

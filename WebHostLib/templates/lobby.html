@@ -264,15 +264,13 @@
                                 <div>
                                     <span class="section-kicker">YOUR LOADOUT</span>
                                     <h3>Add your games</h3>
-                                    <p>Choose a supported game and build its YAML here, or upload one you already have.</p>
+                                    <p>Choose a supported game, configure it in the website editor, then add it directly to this lobby.</p>
                                 </div>
                                 <a class="lobby-btn lobby-btn-primary" href="{{ url_for('games') }}">Choose a game <span aria-hidden="true">&#8594;</span></a>
                             </div>
-                            <div id="yaml-upload-drop" class="drop-zone">
-                                <p>Drop .yaml / .zip files here, or
-                                    <label for="yaml-file-input" class="drop-zone-label">browse...</label>
-                                </p>
-                                <input type="file" id="yaml-file-input" name="file" multiple style="display:none">
+                            <div class="editor-only-note">
+                                <span aria-hidden="true">&#10022;</span>
+                                Lobby entries are created by the editor, so every game is checked against this server's supported worlds.
                             </div>
                         </div>
                     {% endif %}

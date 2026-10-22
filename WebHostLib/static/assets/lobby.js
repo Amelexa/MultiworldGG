@@ -11,8 +11,6 @@
     const reopenBtn = document.getElementById("reopen-btn");
     const lockBtn = document.getElementById("lock-btn");
     const settingsEditBtn = document.getElementById("settings-edit-btn");
-    const yamlFileInput = document.getElementById("yaml-file-input");
-    const dropZone = document.getElementById("yaml-upload-drop");
     const generateStandard = document.getElementById("generate-standard");
     const generateCustom = document.getElementById("generate-custom");
     const downloadPackageBtn = document.getElementById("download-package-btn");
@@ -1035,11 +1033,6 @@
             });
     }
 
-    if (yamlFileInput) {
-        yamlFileInput.addEventListener("change", e => {
-            if (e.target.files.length > 0) uploadFiles(e.target.files);
-        });
-    }
 
     const APWORLD_MAX_BYTES = 60 * 1024 * 1024; // must match server-side APWORLD_MAX_SIZE
 
@@ -1419,20 +1412,6 @@
         });
     }
 
-    if (dropZone) {
-        dropZone.addEventListener("dragover", e => {
-            e.preventDefault();
-            dropZone.classList.add("drag-over");
-        });
-        dropZone.addEventListener("dragleave", () => {
-            dropZone.classList.remove("drag-over");
-        });
-        dropZone.addEventListener("drop", e => {
-            e.preventDefault();
-            dropZone.classList.remove("drag-over");
-            uploadFiles(e.dataTransfer.files);
-        });
-    }
 
     function removeYaml(yamlId) {
         if (!confirm("Remove this YAML?")) return;
