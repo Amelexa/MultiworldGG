@@ -9,6 +9,7 @@ from markupsafe import Markup
 
 from WebHostLib import app
 from WebHostLib.upload import allowed_options, banned_file
+from zip_safety import UnsafeZipError, validate_zip
 
 from Generate import apply_meta_weights, roll_settings, PlandoOptions
 from Utils import parse_yamls
@@ -90,6 +91,10 @@ def get_yaml_data(files) -> dict[str, str] | str | Markup:
 
                 uploaded_file.seek(0)  # offset from is_zipfile check
                 with zipfile.ZipFile(uploaded_file, "r") as zfile:
+                    try:
+                        validate_zip(zfile, max_total_size=32 * 1024 * 1024, max_member_size=4 * 1024 * 1024)
+                    except UnsafeZipError as exc:
+                        return f"Unsafe ZIP rejected: {exc}"
                     for file in zfile.infolist():
                         # Remove folder pathing from str (e.g. "__MACOSX/" folder paths from archives created by macOS).
                         base_filename = os.path.basename(file.filename)

@@ -20,6 +20,7 @@ from worlds.Files import AutoPatchRegister
 from worlds.AutoWorld import data_package_checksum
 from . import app
 from .models import Seed, Room, Slot, GameDataPackage, Lobby
+from zip_safety import validate_zip
 
 banned_extensions = (".sfc", ".z64", ".n64", ".nes", ".smc", ".sms", ".gb", ".gbc", ".gba")
 allowed_options_extensions = (".yaml", ".json", ".yml", ".txt", ".zip")
@@ -95,6 +96,7 @@ def process_multidata(compressed_multidata, files={}):
 
 
 def upload_zip_to_db(zfile: zipfile.ZipFile, owner=None, meta={"race": False}, sid=None):
+    validate_zip(zfile)
     if not owner:
         owner = session["_id"]
     infolist = zfile.infolist()
@@ -118,6 +120,7 @@ def upload_zip_to_db(zfile: zipfile.ZipFile, owner=None, meta={"race": False}, s
         elif handler:
             data = zfile.open(file, "r").read()
             with zipfile.ZipFile(BytesIO(data)) as container:
+                validate_zip(container, max_total_size=64 * 1024 * 1024, max_member_size=16 * 1024 * 1024)
                 player = json.loads(container.open("archipelago.json").read())["player"]
             files[player] = data
 

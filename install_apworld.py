@@ -1,7 +1,5 @@
 """Safely install a trusted APWorld into this MultiworldGG checkout."""
 
-from __future__ import annotations
-
 import argparse
 import json
 import os
@@ -10,6 +8,8 @@ import sys
 import tempfile
 import zipfile
 from pathlib import Path, PurePosixPath
+
+from zip_safety import validate_zip
 
 
 ROOT = Path(__file__).resolve().parent
@@ -27,6 +27,7 @@ def inspect_apworld(source: Path) -> tuple[str, dict]:
 
     try:
         with zipfile.ZipFile(source) as archive:
+            validate_zip(archive)
             members = [PurePosixPath(name) for name in archive.namelist() if name and not name.endswith("/")]
             unsafe = [name for name in members if name.is_absolute() or ".." in name.parts]
             if unsafe:
