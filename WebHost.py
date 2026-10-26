@@ -172,7 +172,9 @@ if __name__ == "__main__":
             app.run(debug=True, port=app.config["PORT"])
         else:
             from waitress import serve
-            serve(app, port=app.config["PORT"], threads=app.config["WAITRESS_THREADS"])
+            serve(app, port=app.config["PORT"], threads=app.config["WAITRESS_THREADS"],
+                  trusted_proxy="127.0.0.1", trusted_proxy_count=1,
+                  trusted_proxy_headers={"x-forwarded-for"})
     else:
         from time import sleep
         try:

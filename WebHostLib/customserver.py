@@ -18,6 +18,7 @@ from collections.abc import Iterable
 
 import psutil
 import websockets
+from ip_access import websocket_protocol
 from pony.orm import commit, db_session, select
 
 import Utils
@@ -400,6 +401,7 @@ def run_server_process(
                             ctx.port,
                             ssl=get_ssl_context(),
                             extensions=[server_per_message_deflate_factory],
+                            create_protocol=websocket_protocol(),
                         )
                         await ctx.server
                     except OSError:
@@ -410,6 +412,7 @@ def run_server_process(
                         sock=socket_creator.create(ctx.host),
                         ssl=get_ssl_context(),
                         extensions=[server_per_message_deflate_factory],
+                        create_protocol=websocket_protocol(),
                     )
                     await ctx.server
                 port = 0

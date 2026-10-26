@@ -10,6 +10,7 @@ from flask_compress import Compress
 from flask_limiter import Limiter
 from pony.flask import Pony
 from werkzeug.routing import BaseConverter
+from ip_access import IPWhitelistMiddleware
 
 from Utils import title_sorted, get_file_safe_name,world_list_sorted
 from .cli import CLI
@@ -21,6 +22,7 @@ LOBBY_APWORLD_FOLDER = os.path.join(UPLOAD_FOLDER, "lobby_apworlds")
 os.makedirs(LOBBY_APWORLD_FOLDER, exist_ok=True)
 
 app = Flask(__name__)
+app.wsgi_app = IPWhitelistMiddleware(app.wsgi_app)
 Pony(app)
 
 app.jinja_env.filters['any'] = any
