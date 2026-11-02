@@ -273,46 +273,55 @@ html{
     .range-container{
         display: flex;
         flex-direction: row;
+        align-items: center;
         max-width: 270px;
 
         input[type=range]{
-            flex-grow: 1;
+            flex: 1 1 0;
+            min-width: 0;
         }
 
         .range-value{
             min-width: 20px;
             margin-left: 0.25rem;
 
-            &[type="number"]{
-                border: none;
-                border-bottom: 1px dashed transparent;
-                background: transparent;
-                color: inherit;
-                font: inherit;
-                padding: 0;
-                text-align: right;
-                cursor: text;
+        }
 
-                &:hover:not(:disabled){
-                    border-bottom-color: currentColor;
-                }
+        input.range-value[type=number]{
+            flex: 0 0 auto;
+            box-sizing: border-box;
+            min-width: 3rem;
+            min-height: 36px;
+            padding: 4px;
+            border: 1px solid rgba(250, 173, 250, 0.28);
+            border-radius: 6px;
+            background: #17111f;
+            color: #f6f1fb;
+            font: inherit;
+            font-variant-numeric: tabular-nums;
+            text-align: center;
+            color-scheme: dark;
+            appearance: textfield;
+            -moz-appearance: textfield;
 
-                &:focus{
-                    outline: none;
-                    border-bottom: 1px solid currentColor;
-                }
+            &:hover:not(:disabled){
+                border-color: #b67be8;
+            }
 
-                &:disabled{
-                    cursor: default;
-                }
+            &:focus-visible{
+                outline: 2px solid #b67be8;
+                outline-offset: 2px;
+            }
 
-                &::-webkit-inner-spin-button,
-                &::-webkit-outer-spin-button{
-                    -webkit-appearance: none;
-                    margin: 0;
-                }
+            &:disabled{
+                color: #aaa2b5;
+                cursor: not-allowed;
+            }
 
-                -moz-appearance: textfield;
+            &::-webkit-inner-spin-button,
+            &::-webkit-outer-spin-button{
+                -webkit-appearance: none;
+                margin: 0;
             }
         }
     }

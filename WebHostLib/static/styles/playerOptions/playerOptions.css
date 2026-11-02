@@ -215,14 +215,49 @@ html {
 #player-options .range-container {
   display: flex;
   flex-direction: row;
+  align-items: center;
   max-width: 270px;
 }
 #player-options .range-container input[type=range] {
-  flex-grow: 1;
+  flex: 1 1 0;
+  min-width: 0;
 }
 #player-options .range-container .range-value {
   min-width: 20px;
   margin-left: 0.25rem;
+}
+#player-options .range-container input.range-value[type=number] {
+  flex: 0 0 auto;
+  box-sizing: border-box;
+  min-width: 3rem;
+  min-height: 36px;
+  padding: 4px;
+  border: 1px solid rgba(250, 173, 250, 0.28);
+  border-radius: 6px;
+  background: #17111f;
+  color: #f6f1fb;
+  font: inherit;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+  color-scheme: dark;
+  appearance: textfield;
+  -moz-appearance: textfield;
+}
+#player-options .range-container input.range-value[type=number]:hover:not(:disabled) {
+  border-color: #b67be8;
+}
+#player-options .range-container input.range-value[type=number]:focus-visible {
+  outline: 2px solid #b67be8;
+  outline-offset: 2px;
+}
+#player-options .range-container input.range-value[type=number]:disabled {
+  color: #aaa2b5;
+  cursor: not-allowed;
+}
+#player-options .range-container input.range-value[type=number]::-webkit-inner-spin-button,
+#player-options .range-container input.range-value[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 #player-options .named-range-container {
   display: flex;
