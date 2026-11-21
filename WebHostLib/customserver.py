@@ -38,6 +38,18 @@ from .models import Command, Room, db
 class CustomClientMessageProcessor(ClientMessageProcessor):
     ctx: WebHostContext
 
+    def _cmd_deaths(self):
+        """Show reported DeathLink deaths for this room and team (since tracking began)."""
+        from mwgg_discord import Bridge
+        rows = Bridge().leaderboard(self.ctx.room_id, self.client.team)
+        if not rows:
+            self.output("No reported DeathLink deaths recorded for this team yet.")
+        else:
+            self.output("Reported DeathLink deaths (this room/team):")
+            for slot, name, count in rows:
+                self.output(f"{name}: {count}")
+        return True
+
     def _cmd_video(self, platform: str, user: str):
         """Set a link for your name in the WebHostLib tracker pointing to a video stream.
         Currently, only YouTube and Twitch platforms are supported.
@@ -105,6 +117,13 @@ class WebHostContext(Context):
         self.main_loop = asyncio.get_running_loop()
         self.static_server_data = static_server_data
         self.games_package_cache = games_package_cache
+
+    async def record_deathlink(self, client, data):
+        from mwgg_discord import Bridge
+        name = self.get_aliased_name(client.team, client.slot)
+        def record():
+            return Bridge().record_death(self.room_id, client.team, client.slot, name, data)
+        await asyncio.to_thread(record)
 
     def __del__(self):
         from Utils import format_SI_prefix

@@ -2412,6 +2412,14 @@ async def process_client_cmd(ctx: Context, client: Client, args: dict):
             for matching_client in match_function(ctx.endpoints):
                 await ctx.send_encoded_msgs(matching_client, msg)
 
+            # Optional webhost observer. Count the sender once, never each recipient.
+            observer = getattr(ctx, "record_deathlink", None)
+            if observer is not None and tags and "DeathLink" in tags:
+                try:
+                    await observer(client, args.get("data"))
+                except Exception:
+                    ctx.logger.exception("DeathLink statistics observer failed; routing continues")
+
             return
 
         elif cmd == "Get":
