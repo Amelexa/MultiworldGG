@@ -40,6 +40,17 @@ class BridgeTests(unittest.TestCase):
         self.assertIn('**2** in this room', payload['embeds'][0]['description'])
         self.assertEqual(payload['allowed_mentions'], {'parse': []})
 
+    def test_goal_persistence_counts_and_team_scope(self):
+        self.death()
+        self.assertTrue(self.bridge.record_goal(self.room, 0, 1, 'Alice'))
+        self.assertFalse(Bridge(self.path).record_goal(self.room, 0, 1, 'Alice'))
+        payload = self.queued()[-1]
+        self.assertEqual(payload['embeds'][0]['title'], '🏆 Goal achieved!')
+        self.assertIn('**1** reported DeathLink deaths', payload['embeds'][0]['description'])
+        self.assertTrue(self.bridge.record_goal(self.room, 1, 1, '@everyone'))
+        self.assertEqual(self.queued()[-1]['allowed_mentions'], {'parse': []})
+        self.assertIn('**0** reported DeathLink deaths', self.queued()[-1]['embeds'][0]['description'])
+
     def test_concurrent_duplicates(self):
         with ThreadPoolExecutor(max_workers=8) as pool:
             results = list(pool.map(lambda _: self.death(), range(20)))
@@ -98,7 +109,7 @@ class BridgeTests(unittest.TestCase):
             db.execute('INSERT INTO Room VALUES (?,?)', (rid,sid))
             db.execute('INSERT INTO LobbyPlayer VALUES (1,?,?)', (lid,'@everyone'))
         self.bridge.poll_lifecycle(path)
-        self.assertEqual([p['embeds'][0]['title'] for p in self.queued()], ['Room Created','Player Joined'])
+        self.assertEqual([p['embeds'][0]['title'] for p in self.queued()], ['🌌 Room created','👋 Adventurer joined'])
         Bridge(self.path).poll_lifecycle(path)
         self.assertEqual(len(self.queued()), 2)
 

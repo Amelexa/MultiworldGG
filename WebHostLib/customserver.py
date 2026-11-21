@@ -118,6 +118,24 @@ class WebHostContext(Context):
         self.static_server_data = static_server_data
         self.games_package_cache = games_package_cache
 
+    def on_client_status_change(self, team, slot):
+        super().on_client_status_change(team, slot)
+        from NetUtils import ClientStatus
+        if self.client_game_state[team, slot] == ClientStatus.CLIENT_GOAL:
+            name = self.get_aliased_name(team, slot)
+            async def record():
+                try:
+                    from mwgg_discord import Bridge
+                    await asyncio.to_thread(lambda: Bridge().record_goal(self.room_id, team, slot, name))
+                except Exception:
+                    self.logger.exception('Discord goal observation failed')
+            task = self.main_loop.create_task(record())
+            # Keep a strong reference until the background write completes.
+            if not hasattr(self, '_discord_tasks'):
+                self._discord_tasks = set()
+            self._discord_tasks.add(task)
+            task.add_done_callback(self._discord_tasks.discard)
+
     async def record_deathlink(self, client, data):
         from mwgg_discord import Bridge
         name = self.get_aliased_name(client.team, client.slot)

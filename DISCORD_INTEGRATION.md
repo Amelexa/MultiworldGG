@@ -27,7 +27,7 @@ is not adequate for this all-room hosting integration.
   a repeated **message**; it cannot increment the death count again.
 - The worker polls committed Seed, Room and LobbyPlayer metadata read-only.
   Existing records are baselined once, without historical spam. Later records
-  produce Seed Generated, Room Created and Player Joined embeds. Very short-lived
+  produce Seed Generated, purple 🌌 Room created and teal 👋 Adventurer joined embeds. Very short-lived
   records deleted between polls cannot be observed. No spoiler data is read.
 
 ## Deployment
@@ -76,3 +76,16 @@ an isolated temporary database, including duplicate suppression. Production
 death count remained zero. The initial startup probes briefly returned 000/502
 while the web service loaded, then recovered to 200. No real player death was
 induced for testing.
+
+## Goal announcements (2026-11-21)
+
+The WebHost status-change hook queues a gold 🏆 Goal achieved! card containing
+player, team, room link and reported DeathLink count. These are tracked reports,
+not all in-game deaths. Writes run off the game loop and observer errors are
+logged without interrupting gameplay. A persistent room/team/slot key suppresses
+repeated completion reports, including across reconnects and restarts. Existing
+completed saves are not replayed. Room/join baselining and disabled mentions are
+unchanged. No real goal or death was induced for verification.
+
+12 isolated bridge/routing tests pass, including the actual WebHost status hook,
+non-goal filtering, goal deduplication, team isolation and tracked death counts.

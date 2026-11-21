@@ -39,3 +39,36 @@ class RoutingTests(unittest.IsolatedAsyncioTestCase):
             sender.auth = auth
             await process_client_cmd(ctx, sender, args)
             ctx.record_deathlink.assert_not_called()
+
+
+class GoalObserverTests(unittest.IsolatedAsyncioTestCase):
+    async def test_goal_observer_runs_off_loop_and_ignores_non_goal(self):
+        import asyncio
+        import logging
+        import tempfile
+        import uuid
+        from pathlib import Path
+        from unittest.mock import patch
+        from NetUtils import ClientStatus
+        from MultiServer import Context
+        from WebHostLib.customserver import WebHostContext
+        from mwgg_discord import Bridge
+        with tempfile.TemporaryDirectory() as tmp:
+            bridge = Bridge(str(Path(tmp) / 'events.sqlite'))
+            with patch.object(Context, 'on_client_status_change'), patch('mwgg_discord.Bridge', return_value=bridge):
+                # The super() call requires a real instance, but no world/database loading.
+                ctx = object.__new__(WebHostContext)
+                ctx.client_game_state = {(0, 1): ClientStatus.CLIENT_READY}
+                ctx.get_aliased_name = lambda *args: 'Alice'
+                ctx.room_id = uuid.uuid4()
+                ctx.main_loop = asyncio.get_running_loop()
+                ctx.logger = logging.getLogger('goal-test')
+                ctx.on_client_status_change(0, 1)
+                self.assertFalse(hasattr(ctx, '_discord_tasks'))
+                ctx.client_game_state[0, 1] = ClientStatus.CLIENT_GOAL
+                ctx.on_client_status_change(0, 1)
+                await asyncio.gather(*ctx._discord_tasks)
+                ctx.on_client_status_change(0, 1)
+                await asyncio.gather(*ctx._discord_tasks)
+            with bridge.connect() as db:
+                self.assertEqual(db.execute('SELECT count(*) FROM outbox').fetchone()[0], 1)
