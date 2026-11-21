@@ -45,7 +45,7 @@ class BridgeTests(unittest.TestCase):
         self.assertTrue(self.bridge.record_goal(self.room, 0, 1, 'Alice'))
         self.assertFalse(Bridge(self.path).record_goal(self.room, 0, 1, 'Alice'))
         payload = self.queued()[-1]
-        self.assertEqual(payload['embeds'][0]['title'], '🏆 Goal achieved!')
+        self.assertEqual(payload['embeds'][0]['title'], 'Goal achieved')
         self.assertIn('**1** reported DeathLink deaths', payload['embeds'][0]['description'])
         self.assertTrue(self.bridge.record_goal(self.room, 1, 1, '@everyone'))
         self.assertEqual(self.queued()[-1]['allowed_mentions'], {'parse': []})
@@ -109,7 +109,7 @@ class BridgeTests(unittest.TestCase):
             db.execute('INSERT INTO Room VALUES (?,?)', (rid,sid))
             db.execute('INSERT INTO LobbyPlayer VALUES (1,?,?)', (lid,'@everyone'))
         self.bridge.poll_lifecycle(path)
-        self.assertEqual([p['embeds'][0]['title'] for p in self.queued()], ['🌌 Room created','👋 Adventurer joined'])
+        self.assertEqual([p['embeds'][0]['title'] for p in self.queued()], ['Room created','Lobby created'])
         Bridge(self.path).poll_lifecycle(path)
         self.assertEqual(len(self.queued()), 2)
 

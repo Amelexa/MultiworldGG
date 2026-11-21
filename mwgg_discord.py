@@ -100,9 +100,8 @@ class Bridge:
             deaths = db.execute('SELECT count(*) FROM deaths WHERE room=? AND team=? AND slot=?',
                                 (room, team, slot)).fetchone()[0]
             description = (f'**{safe_name(name)}** has completed their goal!\n'
-                           f'Team **{team + 1}** · **{deaths}** reported DeathLink deaths\n\n'
-                           'Another world conquered. GG! ✨')
-            self.enqueue(db, self.payload('🏆 Goal achieved!', description,
+                           f'Team **{team + 1}** · **{deaths}** reported DeathLink deaths')
+            self.enqueue(db, self.payload('Goal achieved', description,
                                          '/room/' + short_id(room), 0xF1C40F))
         return True
 
@@ -120,9 +119,9 @@ class Bridge:
                 rows.append(('seed', sid, self.payload('Seed Generated', f'Seed **{sid}** is ready.', '/seed/' + sid, 0x00FF00)))
             for ident, seed in source.execute('SELECT id,seed FROM Room'):
                 rid, sid = short_id(ident), short_id(seed)
-                rows.append(('room', rid, self.payload('🌌 Room created', f'A new multiworld is ready for adventure!\n\nRoom: **{rid}**\nSeed: **{sid}**', '/room/' + rid, 0x9900FF)))
+                rows.append(('room', rid, self.payload('Room created', f'Room: **{rid}**\nSeed: **{sid}**', '/room/' + rid, 0x9900FF)))
             for ident, lobby, name in source.execute('SELECT id,lobby,player_name FROM LobbyPlayer'):
-                rows.append(('join', str(ident), self.payload('👋 Adventurer joined', f'**{safe_name(name)}** joined the lobby.\nThe party is coming together!', '/lobby/' + short_id(lobby), 0x1ABC9C)))
+                rows.append(('join', str(ident), self.payload('Lobby created', f'**{safe_name(name)}** joined the lobby.', '/lobby/' + short_id(lobby), 0x1ABC9C)))
         with self.connect() as db:
             db.execute('BEGIN IMMEDIATE')
             initial = not db.execute("SELECT 1 FROM settings WHERE key='baseline'").fetchone()
