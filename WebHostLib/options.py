@@ -628,10 +628,13 @@ def add_to_lobby(game: str):
 
     # Check for duplicate player names
     if not _has_name_template(yaml_player_name):
-        existing_names = set(select(
-            y.yaml_player_name for y in LobbyYaml
-            if y.lobby == lobby and y.yaml_player_name is not None
-        )[:])
+        # Keep the None check in Python: Pony cannot decompile Python 3.12's
+        # POP_JUMP_IF_NONE opcode inside a generator query.
+        existing_names = {
+            name for name in select(
+                y.yaml_player_name for y in LobbyYaml if y.lobby == lobby
+            )[:] if name is not None
+        }
         if yaml_player_name in existing_names:
             return jsonify({
                 "error": f"Player name '{yaml_player_name}' is already used by another YAML in this lobby."
