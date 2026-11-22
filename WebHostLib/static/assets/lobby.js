@@ -247,6 +247,7 @@
         if (!playerList) return;
 
         closeYamlActionMenus();
+        const allowCustomApworlds = !!lobbyData.allow_custom_apworlds;
         const allowedGamePrefixes = lobbyData.auxiliary_apworld_games || [];
         const auxiliaryApworlds = lobbyData.auxiliary_apworlds || [];
         const auxiliaryLimit = lobbyData.auxiliary_apworld_limit || 5;
